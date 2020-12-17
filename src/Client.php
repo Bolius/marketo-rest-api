@@ -14,7 +14,9 @@ namespace CSD\Marketo;
 use CommerceGuys\Guzzle\Plugin\Oauth2\Oauth2Plugin;
 use CSD\Marketo\Response\GetLeadChanges;
 use CSD\Marketo\Response\GetPagingToken;
+use CSD\Marketo\Response\GetProgramResponse;
 use Guzzle\Common\Collection;
+use Guzzle\Http\Message\Response;
 use Guzzle\Service\Client as GuzzleClient;
 use Guzzle\Service\Description\ServiceDescription;
 
@@ -630,6 +632,122 @@ class Client extends GuzzleClient
     }
 
     /**
+     * @param $folderId
+     * @param $args
+     * @param bool $returnRaw
+     * @return Response
+     */
+    public function getFolder ($folderId, $args, $returnRaw = false)
+    {
+        $args['id'] = $folderId;
+        return $this->getResult('getFolder', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param $emailId
+     * @param array $args
+     * @param bool $returnRaw
+     * @return GetProgramResponse
+     */
+    public function getFolders($args = [], $returnRaw = false)
+    {
+        return $this->getResult('getFolders', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param $emailId
+     * @param array $args
+     * @param bool $returnRaw
+     * @return GetProgramResponse
+     */
+    public function getPrograms($args = [], $returnRaw = false)
+    {
+        return $this->getResult('getPrograms', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param $emailId
+     * @param array $args
+     * @param bool $returnRaw
+     * @return GetProgramResponse
+     */
+    public function getProgram($programId, $returnRaw = false)
+    {
+        $args['id'] = $programId;
+        return $this->getResult('getProgram', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param $emailId
+     * @param array $args
+     * @param bool $returnRaw
+     */
+    public function createProgram($args = array(), $returnRaw = false)
+    {
+        return $this->getResult('createProgram', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param $emailId
+     * @param array $args
+     * @param bool $returnRaw
+     */
+    public function cloneProgram($programId, $args = array(), $returnRaw = false)
+    {
+        $args['id'] = $programId;
+        return $this->getResult('cloneProgram', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param $emailId
+     * @param bool $returnRaw
+     */
+    public function getEmail($emailId, $args = array(), $returnRaw = false)
+    {
+        $args['id'] = $emailId;
+        return $this->getResult('getEmail', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param $emailId
+     * @param bool $returnRaw
+     */
+    public function getEmails($args = array(), $returnRaw = false)
+    {
+        return $this->getResult('getEmails', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param $emailId
+     * @param array $args
+     * @param bool $returnRaw
+     */
+    public function createEmail($args = array(), $returnRaw = false)
+    {
+        return $this->getResult('createEmail', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param array $args
+     * @param bool $returnRaw
+     */
+    public function createOrUpdateEmail($emailId, $args = array(), $returnRaw = false)
+    {
+        $args['id'] = $emailId;
+        return $this->getResult('createOrUpdateEmail', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param $emailId
+     * @param bool $returnRaw
+     */
+    public function getEmailContent($emailId, $returnRaw = false)
+    {
+        $args['id'] = $emailId;
+        return $this->getResult('getEmailContent', $args, false, $returnRaw);
+    }
+
+    /**
      * Update an editable section in an email
      *
      * @param int       $emailId
@@ -667,6 +785,26 @@ class Client extends GuzzleClient
     }
 
     /**
+     * Update an editable section in an email
+     *
+     * @param int       $emailId
+     * @param string    $htmlId
+     * @param array     $args
+     *
+     * @link http://developers.marketo.com/documentation/asset-api/update-email-content-in-editable-section/
+     *
+     * @return UpdateEmailVariableResponse
+     */
+    public function updateEmailVariable($emailId, $name, $value, $args = array(), $returnRaw = false)
+    {
+        $args['id'] = $emailId;
+        $args['name'] = $name;
+        $args['value'] = $value;
+
+        return $this->getResult('updateEmailVariable', $args, false, $returnRaw);
+    }
+
+    /**
      * Approve an email
      *
      * @param int       $emailId
@@ -682,6 +820,214 @@ class Client extends GuzzleClient
         $args['id'] = $emailId;
 
         return $this->getResult('approveEmailbyId', $args, false, $returnRaw);
+    }
+
+    /**
+     * Approve an email
+     *
+     * @param int       $emailId
+     * @param string    $htmlId
+     * @param array     $args
+     *
+     * @link http://developers.marketo.com/documentation/asset-api/approve-email-by-id/
+     *
+     * @return approveEmail
+     */
+    public function addEmailModule($emailId, $moduleId, $args = array(), $returnRaw = false)
+    {
+        $args['id'] = $emailId;
+        $args['moduleId'] = $moduleId;
+
+        return $this->getResult('addEmailModule', $args, false, $returnRaw);
+    }
+
+    /**
+     * Delete a module from an email
+     *
+     * @param int       $emailId
+     * @param string    $htmlId
+     * @param array     $args
+     *
+     *
+     * @return approveEmail
+     */
+    public function deleteEmailModule($emailId, $moduleId, $args = array(), $returnRaw = false)
+    {
+        $args['id'] = $emailId;
+        $args['moduleId'] = $moduleId;
+
+        return $this->getResult('deleteEmailModule', $args, false, $returnRaw);
+    }
+    /**
+     * @param $emailTemplateId
+     * @param array $args
+     * @param bool $returnRaw
+     */
+    public function getEmailTemplate ($emailTemplateId, $args = array(), $returnRaw = false)
+    {
+        $args['id'] = $emailTemplateId;
+        return $this->getResult('getEmailTemplate', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param $emailTemplateId
+     * @param array $args
+     * @param bool $returnRaw
+     */
+    public function getEmailTemplateContent ($emailTemplateId, $args = array(), $returnRaw = false)
+    {
+        $args['id'] = $emailTemplateId;
+        return $this->getResult('getEmailTemplateContent', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param $emailTemplateId
+     * @param array $args
+     * @param bool $returnRaw
+     */
+    public function updateEmailTemplateContent ($emailTemplateId, $content, $args = array(), $returnRaw = false)
+    {
+
+        $args['id'] = $emailTemplateId;
+        $args['content'] = $content;
+        return $this->getResult('updateEmailTemplateContent', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param $emailTemplateId
+     * @param array $args
+     * @param bool $returnRaw
+     */
+    public function getEmailVariables ($emailId, $args = array(), $returnRaw = false)
+    {
+        $args['id'] = $emailId;
+        return $this->getResult('getEmailVariables', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param array $args
+     * @param bool $returnRaw
+     * @return Response
+     */
+    public function getSnippets ($args = array(), $returnRaw = false)
+    {
+        return $this->getResult('getSnippets', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param array $args
+     * @param bool $returnRaw
+     *
+     */
+    public function getLeadActivities ($args = array(), $returnRaw = false)
+    {
+        return $this->getResult('getLeadActivities', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param $leadId
+     * @param $activityDate
+     * @param $activityTypeId
+     * @param $primaryAttributeValue
+     * @param $attributes
+     *
+     * http://developers.marketo.com/documentation/rest/add-custom-activities/
+     *
+     * @return \CSD\Marketo\Response
+     */
+    public function addCustomActivities ($input) {
+        $args['input'] = $input;
+
+        return $this->getResult('addCustomActivities', $args);
+    }
+
+    /**
+     * @param string $names
+     * @param array $args
+     * @return Response
+     */
+    public function getListOfCustomObjects ($names = '', $args = array())
+    {
+        $args['names'] = $names;
+        return $this->getResult('getListOfCustomObjects', $args);
+
+    }
+
+    /**
+     * @param $name
+     * @param $filterType
+     * @param $filterValues
+     * @param array $fields
+     * @param null $nextPageToken
+     * @param bool $returnRaw
+     * @return Response
+     */
+    public function getCustomObjects($name, $filterType, $filterValues, $fields = array(), $nextPageToken = null, $returnRaw = false)
+    {
+        $args['name'] = $name;
+        $args['filterType'] = $filterType;
+        $args['filterValues'] = $filterValues;
+
+        if ($nextPageToken) {
+            $args['nextPageToken'] = $nextPageToken;
+        }
+
+        if (count($fields)) {
+            $args['fields'] = implode(',', $fields);
+        }
+
+        return $this->getResult('getCustomObjects', $args, false, $returnRaw);
+
+    }
+
+
+    /**
+     * @param $name
+     * @param array $args
+     * @return Response
+     */
+    public function describeLead ($args = array(), $returnRaw = FALSE) {
+        return $this->getResult('describeLead', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param $name
+     * @param array $args
+     * @return Response
+     */
+    public function describeCustomObject ($name, $args = array(), $returnRaw = FALSE) {
+        $args['name'] = $name;
+        return $this->getResult('describeCustomObject', $args, false, $returnRaw);
+    }
+
+    /**
+     * @param $name
+     * @param array $args
+     * @return Response
+     */
+    public function deleteCustomObjects ($name, $input, $args = array(), $returnRaw = FALSE) {
+        $args['name'] = $name;
+        $args['input'] = $input;
+        return $this->getResult('deleteCustomObjects', $args, false, $returnRaw);
+    }
+
+    public function createCustomObjects ($name, $input, $args = array()) {
+        $this->createOrUpdateCustomObjects('createOnly', $name, $input, $args);
+    }
+    public function updateCustomObjects ($name, $input, $args = array()) {
+        $this->createOrUpdateCustomObjects('updateOnly', $name, $input, $args);
+    }
+
+    /**
+     * @param $name
+     * @param array $args
+     * @return \CSD\Marketo\Response
+     */
+    public function createOrUpdateCustomObjects ($action, $name, $input, $args = array(), $returnRaw = FALSE) {
+        $args['action'] = $action;
+        $args['name'] = $name;
+        $args['input'] = $input;
+        return $this->getResult('createOrUpdateCustomObjects', $args, false, $returnRaw);
     }
 
     /**

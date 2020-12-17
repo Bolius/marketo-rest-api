@@ -53,6 +53,15 @@
             },
             "responseClass": "CSD\\Marketo\\Response\\GetListResponse"
         },
+
+        "describeLead": {
+            "httpMethod": "GET",
+            "uri": "leads/describe.json",
+            "parameters": {
+            },
+            "responseClass": "CSD\\Marketo\\Response\\DescribeLeadResponse"
+        },
+
         "getLeadByFilterType": {
             "httpMethod": "GET",
             "uri": "leads.json",
@@ -205,7 +214,6 @@
             "parameters": {
                 "nextPageToken": {"location": "query"},
                 "batchSize": {"location": "query"},
-                "nextPageToken": {"location": "query"},
                 "listId": {"location": "query"},
                 "fields": {"location": "query"}
             },
@@ -217,6 +225,134 @@
             "parameters": {},
             "responseClass": "CSD\\Marketo\\Response\\GetLeadPartitionsResponse"
         },
+
+        "getFolder": {
+            "httpMethod": "GET",
+            "uri": "/rest/asset/v1/folder/{id}.json",
+            "parameters": {
+                "id": {"location": "uri"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetFolderResponse"
+        },
+
+        "getFolders": {
+            "httpMethod": "GET",
+            "uri": "/rest/asset/v1/folders.json",
+            "parameters": {
+                "maxReturn": {"location": "query"},
+                "offset": {"location": "query"},
+                "root": {"location": "query"},
+                "maxDepth": {"location": "query"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetFoldersResponse"
+        },
+
+        "getPrograms": {
+            "httpMethod": "GET",
+            "uri": "/rest/asset/v1/programs.json",
+            "parameters": {
+                "maxReturn": {"location": "query"},
+                "offset": {"location": "query"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetProgramsResponse"
+        },
+
+
+        "getProgram": {
+            "httpMethod": "GET",
+            "uri": "/rest/asset/v1/program/{id}.json",
+            "parameters": {
+                "id": {"location": "uri"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetProgramResponse"
+        },
+
+        "createProgram": {
+            "httpMethod": "POST",
+            "uri": "/rest/asset/v1/programs.json",
+            "parameters": {
+                "name": {"location": "query"},
+                "folder": {"location": "query"},
+                "type": {"location": "query"},
+                "channel": {"location": "query"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\CreateProgramResponse"
+        },
+        "cloneProgram": {
+            "httpMethod": "POST",
+            "uri": "/rest/asset/v1/program/{id}/clone.json",
+            "parameters": {
+                "id": {"location": "uri"},
+                "name": {"location": "query"},
+                "folder": {"location": "query"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\CloneProgramResponse"
+        },
+        "getEmail": {
+            "httpMethod": "GET",
+            "uri": "/rest/asset/v1/email/{id}.json",
+            "parameters": {
+                "id": {"location": "uri"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetEmailResponse"
+        },
+        "getEmails": {
+            "httpMethod": "GET",
+            "uri": "/rest/asset/v1/emails.json",
+            "parameters": {
+                "folder": {"location": "query"},
+                "maxReturn": {"location": "query"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetEmailsResponse"
+        },
+        "createOrUpdateEmail": {
+            "httpMethod": "POST",
+            "uri": "/rest/asset/v1/email/{id}.json",
+            "parameters": {
+                "id": {"location": "uri"},
+                "name": {"location": "query"},
+                "template": {"location": "query"},
+                "folder": {"location": "query"},
+                "subject": {"location": "query"},
+                "fromEmail": {"location": "query"},
+                "fromName": {"location": "query"},
+                "replyTo": {"location": "query"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\CreateOrUpdateEmailResponse"
+        },
+        "createEmail": {
+            "httpMethod": "POST",
+            "uri": "/rest/asset/v1/emails.json",
+            "parameters": {
+                "name": {"location": "query"},
+                "template": {"location": "query"},
+                "folder": {"location": "query"},
+                "subject": {"location": "query"},
+                "fromEmail": {"location": "query"},
+                "fromName": {"location": "query"},
+                "replyTo": {"location": "query"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\CreateEmailResponse"
+        },
+
+        "getEmailContent": {
+            "httpMethod": "GET",
+            "uri": "/rest/asset/v1/email/{id}/content.json",
+            "parameters": {
+                "id": {"location": "uri"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetEmailContentResponse"
+        },
+
+        "getEmailVariables": {
+            "httpMethod": "GET",
+            "uri": "/rest/asset/v1/email/{id}/variables.json",
+            "parameters": {
+                "id": {"location": "uri"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetEmailVariablesResponse"
+        },
+
         "updateEmailContent": {
             "httpMethod": "POST",
             "uri": "/rest/asset/v1/email/{id}/content.json",
@@ -240,6 +376,17 @@
                 },
             "responseClass": "CSD\\Marketo\\Response\\UpdateEmailContentInEditableSectionResponse"
         },
+        "updateEmailVariable": {
+            "httpMethod": "POST",
+            "uri": "/rest/asset/v1/email/{id}/variable/{name}.json",
+            "parameters": {
+                "id": {"location": "uri"},
+                "name": {"location": "uri"},
+                "value": {"location": "json"},
+                "moduleId": {"location": "json"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\UpdateEmailVariableResponse"
+        },
         "approveEmailbyId": {
             "httpMethod": "POST",
             "uri": "/rest/asset/v1/email/{id}/approveDraft.json",
@@ -247,6 +394,134 @@
                 "id": {"location": "uri"}
                 },
             "responseClass": "CSD\\Marketo\\Response\\ApproveEmailResponse"
+        },
+
+        "addEmailModule": {
+            "httpMethod": "POST",
+            "uri": "/rest/asset/v1/email/{id}/content/{moduleId}/add.json",
+            "parameters": {
+                "id": {"location": "uri"},
+                "moduleId": {"location": "uri"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\AddEmailModuleResponse"
+        },
+
+        "deleteEmailModule": {
+            "httpMethod": "POST",
+            "uri": "/rest/asset/v1/email/{id}/content/{moduleId}/delete.json",
+            "parameters": {
+                "id": {"location": "uri"},
+                "moduleId": {"location": "uri"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\DeleteEmailModuleResponse"
+        },
+
+        "getEmailTemplate": {
+            "httpMethod": "GET",
+            "uri": "/rest/asset/v1/emailTemplate/{id}.json",
+            "parameters": {
+                "id": {"location": "uri"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetEmailTemplateResponse"
+        },
+
+        "getEmailTemplateContent": {
+            "httpMethod": "GET",
+            "uri": "/rest/asset/v1/emailTemplate/{id}/content",
+            "parameters": {
+                "id": {"location": "uri"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetEmailTemplateContentResponse"
+        },
+
+        "updateEmailTemplateContent": {
+            "httpMethod": "POST",
+            "uri": "/rest/asset/v1/emailTemplate/{id}/content.json",
+            "parameters": {
+                "id": {"location": "uri"},
+                "content": {"location": "json"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\UpdateEmailTemplateContentResponse"
+        },
+
+        "getSnippets": {
+            "httpMethod": "GET",
+            "uri": "/rest/asset/v1/snippets.json",
+            "parameters": {
+                "maxReturn": {"location": "uri"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\AddCustomActivitiesResponse"
+        },
+
+        "getLeadActivities": {
+            "httpMethod": "GET",
+            "uri": "/rest/v1/activities.json",
+            "parameters": {
+                "nextPageToken": {"location": "uri"},
+                "maxReturn": {"location": "uri"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetLeadActivitiesResponse"
+        },
+
+        "addCustomActivities": {
+            "httpMethod": "POST",
+            "uri": "/rest/v1/activities/external.json",
+            "parameters": {
+                "input": {"location": "json"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\AddCustomActivitiesResponse"
+        },
+
+        "getListOfCustomObjects": {
+            "httpMethod": "GET",
+            "uri": "/rest/v1/customobjects.json",
+            "parameters": {
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetListOfCustomObjectsResponse"
+        },
+        "getCustomObjects": {
+            "httpMethod": "GET",
+            "uri": "/rest/v1/customobjects/{name}.json",
+            "parameters": {
+                "name": {"location": "uri"},
+                "filterType": {"location": "query"},
+                "filterValues": {"location": "query"},
+                "fields": {"location": "query"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetCustomObjectsResponse"
+        },
+        "describeCustomObject": {
+            "httpMethod": "GET",
+            "uri": "/rest/v1/customobjects/{name}/describe.json",
+            "parameters": {
+                "name": {"location": "uri"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\DescribeCustomObjectResponse"
+        },
+        "createOrUpdateCustomObjects": {
+            "httpMethod": "POST",
+            "uri": "/rest/v1/customobjects/{name}.json",
+            "parameters": {
+                "name": {"location": "uri"},
+                "action": {"location": "json"},
+                "input": {"location": "json"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\CreateOrUpdateCustomObjectsResponse"
+        },
+        "deleteCustomObjects": {
+            "httpMethod": "POST",
+            "uri": "/rest/v1/customobjects/{name}/delete.json",
+            "parameters": {
+                "name": {"location": "uri"},
+                "input": {"location": "json"},
+                "deleteBy": {"location": "json"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\DeleteCustomObjectsResponse"
         }
+
+
+
+
+
     }
 }
